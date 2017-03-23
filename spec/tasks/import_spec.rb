@@ -89,4 +89,31 @@ describe 'Import rake task', task: true do
       expect(Website.count).to eq 1
     end
   end
+
+  context 'with a csv file containing multiple rows with the same website' do
+    let(:arguments) { '[Example,spec/fixtures/one_gallery_multiple_rows.csv]' }
+
+    xit 'imports that csv file using that Source' do
+      Fabricate :tag, name: 'design'
+      Fabricate :tag, name: 'modern'
+      source = Fabricate :source, name: 'Example'
+      stdout, status = Open3.capture2 command
+      expect(stdout).to eq "Import ##{source.imports.first.id} created.\n"
+      expect(status.exitstatus).to eq 0
+      expect(source.imports.count).to eq 1
+      import = source.imports.first
+      expect(import.raw_inputs.count).to eq 2
+      expect(Email.count).to eq 2
+      expect(Location.count).to eq 2
+      expect(Organization.count).to eq 1
+      expect(OrganizationName.count).to eq 1
+      expect(OrganizationTag.count).to eq 2
+      expect(PhoneNumber.count).to eq 2
+      expect(Website.count).to eq 1
+
+      RawInput.each do |raw_input|
+        expect(raw_input.exception).to eql nil
+      end
+    end
+  end
 end
