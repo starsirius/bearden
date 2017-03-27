@@ -18,7 +18,7 @@ class ImportsController < ApplicationController
 
   def import_params
     default = { transformer: CsvTransformer }
-    permitted = [:source_id, :description]
+    permitted = %i(source_id description)
     params.require(:import).permit(permitted).merge(default)
   end
 end

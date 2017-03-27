@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Organization < ApplicationRecord
   has_many :emails
   has_many :locations
@@ -7,5 +16,5 @@ class Organization < ApplicationRecord
   has_many :tags, through: :organization_tags
   has_many :websites
 
-  has_paper_trail ignore: [:created_at, :updated_at]
+  has_paper_trail ignore: %i(created_at updated_at)
 end

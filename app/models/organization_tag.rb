@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: organization_tags
+#
+#  id              :integer          not null, primary key
+#  tag_id          :integer
+#  organization_id :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class OrganizationTag < ApplicationRecord
   class TagNotFound < StandardError; end
 
@@ -5,7 +16,7 @@ class OrganizationTag < ApplicationRecord
   belongs_to :tag
   validates_uniqueness_of :tag, scope: :organization
 
-  has_paper_trail ignore: [:created_at, :updated_at]
+  has_paper_trail ignore: %i(created_at updated_at)
 
   def self.apply(tag_names, organization)
     Array(tag_names).each do |tag_name|

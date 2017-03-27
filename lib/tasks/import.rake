@@ -2,7 +2,7 @@ require 'csv'
 require 'open-uri'
 
 desc 'Import csv file (run without args for allowed headers)'
-task :import_csv, [:source_name, :uri] => :environment do |_, args|
+task :import_csv, %i(source_name uri) => :environment do |_, args|
   if args.any?
     source_name = args[:source_name]
     uri = args[:uri]

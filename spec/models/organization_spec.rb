@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 describe Organization do

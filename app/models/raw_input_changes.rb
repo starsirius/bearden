@@ -10,7 +10,7 @@ class RawInputChanges
     @attrs = raw_input.transform
     @organization = nil
     @relations = {}
-    @relations_to_build = [:email, :location, :organization_name, :phone_number]
+    @relations_to_build = %i(email location organization_name phone_number)
     @error_details = {}
   end
 
